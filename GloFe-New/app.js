@@ -127,7 +127,7 @@ const PRODUCTS = [
     country:'China',
     flag:'🇨🇳',
     image:'assets/images/mo.jpg',
-    price:4000,
+    price:27000,
     deadline:'25 Oct 2026',
     tags:['Clothing','Fashion'],
     desc:'Vintage sheepskin jacket designed for cozy warmth and style.',
@@ -245,6 +245,7 @@ const orders = () =>
 const toast = msg => {
 
   const e = document.getElementById('toast');
+  // It selects an HTML element by its ID.
 
   if(!e) return;
 
@@ -455,6 +456,7 @@ function initHeader() {
 
   document
     .getElementById('mobileMenu')
+    // รอฟัง event แล้วเรียก function
     ?.addEventListener('click', () => {
 
       document
