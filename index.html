@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="GloFe — Global Pre-Order" />
+  <title>GloFe — Global Pre-Order</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container nav">
+     <a class="brand" href="index.html">
+  <img src="assets/images/โล.png" alt="GloFe Logo" class="brand-logo"><p>GloFe</p></a>
+    
+      <button class="mobile-menu" id="mobileMenu">☰</button>
+      <nav id="siteNav">
+        <a href="index.html" data-i18n="home">Home</a>
+        <a href="index.html#shop" data-i18n="shop">Shop</a>
+        <a href="wishlist.html" data-i18n="wishlist">Wishlist</a>
+        <a href="account.html" data-i18n="account">My Account</a>
+        <a href="index.html#how" data-i18n="how">How it works</a>
+        <a href="index.html#contact" data-i18n="contact">Contact</a>
+        
+      </nav>
+      <div class="nav-tools">
+        <!-- ปรับประเทศจัดส่ง (ไม่มีกลุ่มอาเซียน) -->
+        <label class="select-pill">
+          <span>Ship to</span>
+          <!-- ใช้แบ่งหน้าเว็บออกเป็นส่วน ๆ ที่มีเนื้อหาเกี่ยวข้องกัน -->
+          <select id="countrySelect">
+            <option value="TH">🇹🇭 Thailand</option>
+            <option value="KR">🇰🇷 Korea</option>
+            <option value="JP">🇯🇵 Japan</option>
+            <option value="CN">🇨🇳 China</option>
+            <option value="USA">🇺🇸 USA</option>
+          </select>
+        </label>
+        <div class="langs">
+          <button data-lang="en" class="lang active">EN</button><span>/</span><button data-lang="th" class="lang">TH</button>
+        </div>
+        <a class="cart-pill" href="cart.html">🛒 <span data-i18n="cart">Cart</span><i id="cartCount">0</i></a>
+        <button class="btn ghost" id="loginOpen" data-i18n="login">Log in</button>
+        <button class="btn dark" id="signupOpen" data-i18n="signup">Sign up</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          
+          <p class="eyebrow" data-i18n="heroEyebrow">GLOBAL PRE-ORDER • CURATED • SIMPLE</p>
+          <h1>Bring the world <em>closer.</em></h1>
+          <p class="lead" data-i18n="heroText">Discover carefully selected products from Korea, Japan, China and the USA. Order in a few clicks and follow your parcel from supplier to doorstep.</p>
+          <div class="hero-actions">
+            <a class="btn dark big" href="#shop" data-i18n="shopNow">Shop now</a>
+            <a class="link" href="#how" data-i18n="learnHow">How it works →</a>
+          </div>
+          <div class="trust">
+            <span>✓ <span data-i18n="trust1">Curated products</span></span>
+            <span>✓ <span data-i18n="trust2">Transparent deadlines</span></span>
+            <span>✓ <span data-i18n="trust3">Order tracking</span></span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-note">🇰🇷 Featured from Korea</div>
+          <img src="assets/images/carlyn2.jpg" alt="Soft Mini Bag">
+          <div class="hero-caption"><span>Carlyn Flower Cozy H75142010</span><b>฿2,300</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="shop">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow" data-i18n="curated">CURATED FOR YOU</p>
+            <h2 data-i18n="popular">Popular pre-orders</h2>
+          </div>
+          <div class="filters">
+            <label class="search"><span>⌕</span><input id="search" placeholder="Search products..." data-i18n-ph="searchPlaceholder"></label>
+            <!-- ตัวเลือกกรองประเทศสินค้าหน้า Shop -->
+            <select id="filterCountry">
+              <option value="all" data-i18n="allCountries">All countries</option>
+              <option value="Korea">Korea 🇰🇷</option>
+              <option value="Japan">Japan 🇯🇵</option>
+              <option value="China">China 🇨🇳</option>
+              <option value="USA">USA 🇺🇸</option>
+            </select>
+          </div>
+        </div>
+        <div id="productGrid" class="product-grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container">
+        <div class="center">
+          <p class="eyebrow" data-i18n="howEyebrow">HOW IT WORKS</p>
+          <h2 data-i18n="howTitle">From click to doorstep.</h2>
+        </div>
+        <div class="steps">
+          <article><span>01</span><h3 data-i18n="step1t">Create an account</h3><p data-i18n="step1p">Save your profile, orders and delivery details in one place.</p></article>
+          <article><span>02</span><h3 data-i18n="step2t">Choose your products</h3><p data-i18n="step2p">Browse by country and check the pre-order closing date.</p></article>
+          <article><span>03</span><h3 data-i18n="step3t">Pay securely</h3><p data-i18n="step3p">Review your cart and complete the checkout page.</p></article>
+          <article><span>04</span><h3 data-i18n="step4t">Track the order</h3><p data-i18n="step4p">Follow updates from supplier order to delivery.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark-section">
+      <div class="container promo">
+        <div><p class="eyebrow light">WHY GLOFE?</p><h2 data-i18n="whyTitle">Global shopping, without the guesswork.</h2></div>
+        <div class="promo-list">
+          <span>01 <b data-i18n="why1">Clear product info</b></span>
+          <span>02 <b data-i18n="why2">Visible deadlines</b></span>
+          <span>03 <b data-i18n="why3">Easy tracking</b></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">GET IN TOUCH</p>
+        <h2>Contact Us</h2>
+        <p>Have a question about a product or your pre-order?</p>
+      </div>
+    </div>
+
+    <form id="contactForm" class="contact-form">
+
+      <label>
+        Name
+        <input
+          type="text"
+          id="contactName"
+          placeholder="Enter your name"
+          required
+        >
+      </label>
+
+      <label>
+        Email
+        <input
+          type="email"
+          id="contactEmail"
+          placeholder="Enter your email"
+          required
+        >
+      </label>
+
+      <label>
+        Subject
+        <input
+          type="text"
+          id="contactSubject"
+          placeholder="What is your question?"
+          required
+        >
+      </label>
+
+      <label>
+        Message
+        <textarea
+          id="contactMessage"
+          rows="6"
+          placeholder="Write your message..."
+          required
+        ></textarea>
+      </label>
+
+      <button type="submit" class="btn dark">
+        Send Message
+      </button>
+
+      
+       
+     
+
+    </form>
+
+  </div>
+</section>
+    
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html"><img src="assets/images/โลโก้.png" alt="GloFe Logo" class="brand-logo"></a><span><b>GloFe</b><small> GLOBAL PRE-ORDER</small></span></a>
+        <p>Curated goods from around the world, brought closer.</p>
+      </div>
+      <div><b>Explore</b><a href="index.html#shop">Shop</a><a href="wishlist.html">Wishlist</a><a href="account.html">My Account</a></div>
+      <div><b>Support</b><a href="index.html#contact">Contact</a><a href="cart.html">Cart</a><a href="account.html">Order history</a></div>
+      <div><b>Social</b><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">Facebook</a></div>
+    </div>
+    <div class="container footer-bottom">© 2026 GloFe · Glofe@example.com</div>
+  </footer>
+
+  <!-- Modal สำหรับการเข้าสู่ระบบและสมัครสมาชิก -->
+  <div id="authModal" class="modal hidden">
+    <div class="backdrop" data-close></div>
+    <div class="modal-card">
+      <button class="close" data-close>×</button>
+      <div class="tabs">
+        <button id="tabLogin" class="active">Log in</button>
+        <button id="tabSignup">Create account</button>
+      </div>
+      <form id="loginForm">
+        <p class="eyebrow">WELCOME BACK</p>
+        <h2>Log in to GloFe</h2>
+        <label>Email<input id="loginEmail" type="email" required></label>
+        <label>Password<input id="loginPassword" type="password" required minlength="6"></label>
+        <button class="btn dark full">Log in</button>
+      </form>
+      <form id="signupForm" class="hidden">
+        <p class="eyebrow">JOIN GLOFE</p>
+        <h2>Create your account</h2>
+        <label>Full name<input id="signupName" required></label>
+        <label>Email<input id="signupEmail" type="email" required></label>
+        <label>Password<input id="signupPassword" type="password" minlength="6" required></label>
+        <label>Confirm password<input id="signupConfirm" type="password" minlength="6" required></label>
+        <button class="btn dark full">Create account</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
