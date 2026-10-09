@@ -2,215 +2,145 @@
 // GLOFE PRODUCTS
 // ======================================================
 
-const PRODUCTS = [
+// Products will be loaded from the backend API
+let PRODUCTS = [];
 
-  // 🇰🇷 KOREA
-  {
-    id:1,
-    name:'Carlyn Flower Cozy H75142010',
-    country:'Korea',
-    flag:'🇰🇷',
-    image:'assets/images/carlyn2.jpg',
-    price:2300,
-    deadline:'15 Oct 2026',
-    tags:['Bags','Fashion'],
-    desc:'· The Cozy Bag features a feminine floral pattern and a lightweight feel for effortless everyday wear Designed to contour comfortably to the body for a secure and balanced fitCARLYN’s signature round stopper allows the strap to be freely adjusted to your desired shape and length Versatile 4-way styling: tote, shoulder, crossbody, or sling Detailed with a side zip pocket for organized storage, along with an additional interior zip pocket for added security',
-   
-  },
+const API_URL = 'http://localhost:4000/api';
 
-  {
-    id:2,
-    name:'Stand Oil Day Backpack / Brown',
-    country:'Korea',
-    flag:'🇰🇷',
-    image:'assets/images/stand.jpg',
-    price:4000,
-    deadline:'18 Oct 2026',
-    tags:['Bags'],
-    desc:'A versatile everyday backpack with lightweight vegan leather.'
-  },
+let csrfToken = '';
 
-  {
-    id:3,
-    name:'Carlyn Lovey heart keyring J76323010',
-    country:'Korea',
-    flag:'🇰🇷',
-    image:'assets/images/คาร์ลีน.jpg',
-    price:1000,
-    deadline:'19 Oct 2026',
-    tags:['Accessory','Bags'],
-    desc:'With fluffy quilting heart and bowknot details Lovie Heart Keyring capturing a lovely mood. Voluminous heart shape finished with signature quilting. Soft and lightweight fabric material. Bowknot detail added to the heart. Designs that add a pop of color to the bag. Easy attachment and detachment via Carlin heart carabiner.'
-  },
+async function getCsrfToken() {
+  const response = await fetch(`${API_URL}/csrf-token`, {
+    credentials: 'include'
+  });
 
-  {
-    id:4,
-    name:'CAP MARDI BOLD LOGO_BROWN CREAM',
-    country:'Korea',
-    flag:'🇰🇷',
-    image:'assets/images/gap.jpg',
-    price:1350,
-    deadline:'21 Oct 2026',
-    tags:['Clothing','Fashion'],
-    desc:'Signature floral graphic pullover in relaxed fit.',
-    sizes:['S','M','L','XL']
-  },
+  const result = await response.json();
 
-
-  // 🇯🇵 JAPAN
-  {
-    id:5,
-    name:'HYDRO FLASK ALL AROUND TUMBLERS 20 OZ CLOUD PINK',
-    country:'Japan',
-    flag:'🇯🇵',
-    image:'assets/images/กระติก.jpg',
-    price:1500,
-    deadline:'20 Oct 2026',
-    tags:['Lifestyle','Home'],
-    desc:'A stylish reusable tumbler designed for everyday use.'
-  },
-
-  {
-    id:6,
-    name:'GU Tiered Flared Skirt',
-    country:'Japan',
-    flag:'🇯🇵',
-    image:'assets/images/gu3.jpg',
-    price:700,
-    deadline:'22 Oct 2026',
-    tags:['Clothing','Fashion'],
-    desc:'A lightweight tiered flared skirt with a soft, flowing silhouette.',
-    sizes:['S','M','L','XL']
-  },
-
-  {
-    id:7,
-    name:'Onitsuka Tiger MEXICO 66 SD VIN',
-    country:'Japan',
-    flag:'🇯🇵',
-    image:'assets/images/Japan1.jpg',
-    price:6200,
-    deadline:'24 Oct 2026',
-    tags:['Shoes','Fashion'],
-    desc:'Classic Onitsuka Tiger sneakers with a clean retro design, comfortable fit, and iconic Japanese style.',
-    sizes:['36','37','38','39','40','41']
-  },
-
-  {
-    id:8,
-    name:'SHISEIDO MEN Energizing Moisturizer Extra Light Fluid',
-    country:'Japan',
-    flag:'🇯🇵',
-    image:'assets/images/j2.jpg',
-    price:1550,
-    deadline:'27 Oct 2026',
-    tags:['Beauty','Skincare'],
-    desc:'A lightweight emulsion which invigorates skin through the power of hydration.'
-  },
-
-
-  // 🇨🇳 CHINA
-  {
-    id:9,
-    name:'Baseus Picogo Air AM71 3C Magnetic Power Bank 5000mAh 22.5W',
-    country:'China',
-    flag:'🇨🇳',
-    image:'assets/images/base.jpg',
-    price:2400,
-    deadline:'17 Oct 2026',
-    tags:['Tech'],
-    desc:'Baseus Picogo Air AM71 Magnetic Power Bank 5000mAh 22.5W features a remarkably slim 0.2-inch profile with 22.5W fast charging CCC certification, and advanced cooling technology. Its built-in NFC PowerSense enables seamless device pairing and real-time monitoring via the dedicated APP.'
-  },
-
-  {
-    id:10,
-    name:'Moromoro VINTAGE SHEEPSKIN JACKET',
-    country:'China',
-    flag:'🇨🇳',
-    image:'assets/images/mo.jpg',
-    price:27000,
-    deadline:'25 Oct 2026',
-    tags:['Clothing','Fashion'],
-    desc:'Vintage sheepskin jacket designed for cozy warmth and style.',
-    sizes:['S','M','L','XL']
-  },
-
-  {
-    id:11,
-    name:'DJI Flip',
-    country:'China',
-    flag:'🇨🇳',
-    image:'assets/images/drone.jpg',
-    price:10500,
-    deadline:'23 Oct 2026',
-    tags:['Tech'],
-    desc:'Foldable Full-Coverage Propeller Guard. Under 249 g. Subject Tracking. Capture Your Best Angle. 1/1.3-inch CMOS Sensor. 4K/60fps HDR Video. 31-Min Max Flight Time.'
-  },
-
-  {
-    id:12,
-    name:'MUVA Mini Cotton Candy-MU1071 Handbag / Shoulder Bag with Crossbody Strap',
-    country:'China',
-    flag:'🇨🇳',
-    image:'assets/images/muva.jpg',
-    price:2400,
-    deadline:'28 Oct 2026',
-    tags:['Bags','Fashion'],
-    desc:'MUVA MINI COTTON CANDY Handbag. A minimalist handbag made from high-quality polyester fibers, offering a lightweight, strong, and durable design. It features a convenient magnetic snap closure and an elegant, simple style that is perfect for everyday use or special occasions. Compact yet spacious enough for your essentials, it adds a stylish touch to any look.'
-  },
-
-
-  // 🇺🇸 USA
-  {
-    id:13,
-    name:'FEAR OF GOD ESSENTIALS',
-    country:'USA',
-    flag:'🇺🇸',
-    image:'assets/images/เอส.jpg',
-    price:3900,
-    deadline:'12 Oct 2026',
-    tags:['Fashion','Shoes'],
-    desc:'Minimal everyday fashion piece with a modern streetwear style.',
-    sizes:['S','M','L','XL']
-  },
-
-  {
-    id:14,
-    name:'Beats Studio Pro Wireless Headphones',
-    country:'USA',
-    flag:'🇺🇸',
-    image:'assets/images/Wireless.jpg',
-    price:4200,
-    deadline:'26 Oct 2026',
-    tags:['Tech','Lifestyle'],
-    desc:'Noise cancelling wireless headphones with spatial audio.'
-  },
-
-  {
-    id:15,
-    name:'Crocs classic Chocolate',
-    country:'USA',
-    flag:'🇺🇸',
-    image:'assets/images/crocs2.jpg',
-    price:2250,
-    deadline:'29 Oct 2026',
-    tags:['Shoes'],
-    desc:'Classic Crocs with a comfortable everyday design.',
-    sizes:['36','37','38','39','40','41']
-  },
-
-  {
-    id:16,
-    name:'kate spade NEW YORK Protective Case Mag iPhone 17 Pro Max - Autumn Tolie',
-    country:'USA',
-    flag:'🇺🇸',
-    image:'assets/images/เคส.jpg',
-    price:2000,
-    deadline:'30 Oct 2026',
-    tags:['Accessory'],
-    desc:'Stylish protective case designed for iPhone 17 Pro Max.'
+  if (!response.ok || !result.success) {
+    throw new Error('Could not get security token');
   }
 
-];
+  csrfToken = result.data.csrfToken;
+  return csrfToken;
+}
+
+async function apiRequest(path, options = {}) {
+  if (!csrfToken) {
+    await getCsrfToken();
+  }
+
+  const response = await fetch(`${API_URL}${path}`, {
+    ...options,
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken,
+      ...options.headers
+    }
+  });
+
+  const result = await response.json();
+
+  if (!response.ok || !result.success) {
+    throw new Error(
+      result.message || 'Request failed'
+    );
+  }
+
+  if (result.data?.csrfToken) {
+    csrfToken = result.data.csrfToken;
+  }
+
+  return result.data;
+}
+
+// Convert backend product data into the format
+// used by the existing frontend.
+function normalizeProduct(p) {
+  const country = p.country || {};
+
+  const flagByCountry = {
+    Korea: '🇰🇷',
+    Japan: '🇯🇵',
+    China: '🇨🇳',
+    USA: '🇺🇸'
+  };
+
+  const deadline = p.preorderDeadline
+    ? new Date(p.preorderDeadline + 'T00:00:00')
+        .toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        })
+    : 'Not specified';
+
+  const variants = Array.isArray(p.variants)
+    ? p.variants
+    : [];
+
+  
+return {
+  ...p,
+  country: country.name || p.country || '',
+  countryCode: country.code || '',
+  flag: country.flag || flagByCountry[country.name] || '',
+  image: p.image || 'assets/images/product-1.svg',
+  deadline,
+  desc: p.description || p.desc || '',
+  tags: Array.isArray(p.tags) ? p.tags : [],
+  sizes: variants
+    .filter(v => /size/i.test(v.option || ''))
+    .map(v => String(v.value))
+};
+
+
+}
+
+// Load all product pages from the backend.
+async function loadProducts() {
+  const firstResponse = await fetch(`${API_URL}/products?page=1`);
+
+  if (!firstResponse.ok) {
+    throw new Error('Could not load products');
+  }
+
+  const firstPayload = await firstResponse.json();
+
+  if (!firstPayload.success) {
+    throw new Error('The product API returned an error');
+  }
+
+  const allProducts = Array.isArray(firstPayload.data)
+    ? [...firstPayload.data]
+    : [];
+
+  const meta = firstPayload.meta?.meta
+    || firstPayload.meta
+    || {};
+
+  const totalPages = Number(meta.totalPages || 1);
+
+  for (let page = 2; page <= totalPages; page++) {
+    const response = await fetch(`${API_URL}/products?page=${page}`);
+
+    if (!response.ok) {
+      throw new Error(`Could not load product page ${page}`);
+    }
+
+    const payload = await response.json();
+
+    if (!payload.success || !Array.isArray(payload.data)) {
+      throw new Error(`Invalid data on product page ${page}`);
+    }
+
+    allProducts.push(...payload.data);
+  }
+
+  PRODUCTS = allProducts.map(normalizeProduct);
+  console.log('Products loaded:', PRODUCTS.length);
+console.log('First product:', PRODUCTS[0]);
+}
 
 
 // ======================================================
@@ -497,6 +427,104 @@ document.getElementById('contactForm')?.addEventListener('submit', function(e) {
 // AUTH
 // ======================================================
 
+// ======================================================
+// PASSWORD VALIDATION
+// ======================================================
+
+function initPasswordValidation() {
+  const password = document.getElementById('signupPassword');
+  const confirm = document.getElementById('signupConfirm');
+  const feedback = document.getElementById('confirmPasswordFeedback');
+
+  if (!password) return;
+
+  const rules = [
+    {
+      id: 'ruleLength',
+      test: value => value.length >= 8
+    },
+    {
+      id: 'ruleUpper',
+      test: value => /[A-Z]/.test(value)
+    },
+    {
+      id: 'ruleLower',
+      test: value => /[a-z]/.test(value)
+    },
+    {
+      id: 'ruleNumber',
+      test: value => /[0-9]/.test(value)
+    }
+  ];
+
+  function updatePasswordRules() {
+    const value = password.value;
+
+    rules.forEach(rule => {
+      const element = document.getElementById(rule.id);
+      if (!element) return;
+
+      const passed = rule.test(value);
+
+      element.classList.toggle('valid', passed);
+      element.classList.toggle(
+        'invalid',
+        value.length > 0 && !passed
+      );
+
+      const icon = element.querySelector('.rule-icon');
+      if (icon) {
+        icon.textContent = passed ? '✓' : '○';
+      }
+    });
+
+    updateConfirmFeedback();
+  }
+
+  function updateConfirmFeedback() {
+    if (!confirm || !feedback) return;
+
+    const hasConfirmation = confirm.value.length > 0;
+    const matches = password.value === confirm.value;
+
+    feedback.classList.remove('match', 'no-match');
+
+    if (!hasConfirmation) {
+      feedback.textContent = '';
+    } else if (matches) {
+      feedback.textContent = '✓ Passwords match';
+      feedback.classList.add('match');
+    } else {
+      feedback.textContent = '✗ Passwords do not match';
+      feedback.classList.add('no-match');
+    }
+  }
+
+  password.addEventListener('input', updatePasswordRules);
+  confirm?.addEventListener('input', updateConfirmFeedback);
+
+  // Update if the browser restores previously entered values.
+  updatePasswordRules();
+}
+
+initPasswordValidation();
+
+function isPasswordValid() {
+  const password = document.getElementById('signupPassword');
+  const confirm = document.getElementById('signupConfirm');
+
+  if (!password || !confirm) return false;
+
+  const value = password.value;
+
+  return (
+    value.length >= 8 &&
+    /[A-Z]/.test(value) &&
+    /[a-z]/.test(value) &&
+    /[0-9]/.test(value) &&
+    value === confirm.value
+  );
+}
 function initAuth() {
 
   const modal =
@@ -583,119 +611,73 @@ function initAuth() {
 
 
   // SIGN UP
-  document
-    .getElementById('signupForm')
-    ?.addEventListener('submit', e => {
+  
+document
+  .getElementById('signupForm')
+  ?.addEventListener('submit', async e => {
+    e.preventDefault();
 
-      e.preventDefault();
+    
+if (!isPasswordValid()) {
+  toast(
+    'Password must be at least 8 characters and include uppercase, lowercase, and a number. Passwords must match.'
+  );
+  return;
+}
 
-      let a =
-        get('glofe_accounts', []);
-
-      const email =
-        signupEmail.value
-          .trim()
-          .toLowerCase();
-
-      if(
-        a.some(x => x.email === email)
-      ) {
-
-        return toast(
-          'Email already registered'
-        );
-
-      }
-
-      if(
-        signupPassword.value !==
-        signupConfirm.value
-      ) {
-
-        return toast(
-          'Passwords do not match'
-        );
-
-      }
-
-      a.push({
-
-        name:
-          signupName.value.trim(),
-
-        email,
-
-        password:
-          signupPassword.value
-
+    try {
+      const data = await apiRequest('/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: signupName.value.trim(),
+          email: signupEmail.value.trim().toLowerCase(),
+          password: signupPassword.value
+        })
       });
 
-      set('glofe_accounts', a);
+      set('glofe_user', data.user);
 
-      set('glofe_user', {
-
-        name:
-          signupName.value.trim(),
-
-        email
-
-      });
+      // Clear any old locally stored account records.
+      localStorage.removeItem('glofe_accounts');
 
       modal.classList.add('hidden');
-
       toast('Welcome to GloFe');
-
       location.reload();
 
-    });
+    } catch (error) {
+      toast(error.message || 'Registration failed');
+    }
+  });
 
-
+ 
+  
   // LOGIN
   document
     .getElementById('loginForm')
-    ?.addEventListener('submit', e => {
-
+    ?.addEventListener('submit', async e => {
       e.preventDefault();
 
-      let a =
-        get('glofe_accounts', []);
+      try {
+        const data = await apiRequest('/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: loginEmail.value.trim().toLowerCase(),
+            password: loginPassword.value
+          })
+        });
 
-      const email =
-        loginEmail.value
-          .trim()
-          .toLowerCase();
+        set('glofe_user', data.user);
 
-      const p =
-        loginPassword.value;
+        // Remove old local-only accounts.
+        localStorage.removeItem('glofe_accounts');
 
-      const x =
-        a.find(v =>
-          v.email === email &&
-          v.password === p
-        );
+        modal.classList.add('hidden');
+        toast('Welcome back');
+        location.reload();
 
-      if(!x) {
-
-        return toast(
-          'Email or password is incorrect'
-        );
-
+      } catch (error) {
+        toast(error.message || 'Login failed');
       }
-
-      set('glofe_user', {
-
-        name: x.name,
-
-        email: x.email
-
-      });
-
-      modal.classList.add('hidden');
-
-      toast('Welcome back');
-
-      location.reload();
-
     });
 
 }
@@ -823,23 +805,26 @@ function renderHome() {
       )?.value || 'all';
 
 
-    const list =
-      PRODUCTS.filter(p =>
+    
+const list =
+  PRODUCTS.filter(p =>
 
-        (f === 'all' ||
-         p.country === f)
+    (f === 'all' ||
+     p.country === f ||
+     p.countryCode === f)
 
-        &&
+    &&
 
-        (
-          p.name +
-          ' ' +
-          p.tags.join(' ')
-        )
-        .toLowerCase()
-        .includes(q)
+    (
+      p.name +
+      ' ' +
+      p.tags.join(' ')
+    )
+    .toLowerCase()
+    .includes(q)
 
-      );
+  );
+
 
 
     grid.innerHTML = list.length
@@ -2560,29 +2545,37 @@ document
 // INITIALIZE
 // ======================================================
 
-initHeader();
+async function initializeApp() {
+  try {
+    await loadProducts();
 
-initAuth();
+    initHeader();
+    initAuth();
+    renderHome();
+    renderProductPage();
+    renderCartPage();
+    renderWishlistPage();
+    renderAccountPage();
+    renderPaymentPage();
 
-renderHome();
+  } catch (error) {
+    console.error('GloFe initialization error:', error);
 
-renderProductPage();
+    const grid = document.getElementById('productGrid');
 
-renderCartPage();
+    if (grid) {
+      grid.innerHTML = `
+        <p>Unable to load products.
+        Please check the backend server.</p>
+      `;
+    }
+  }
 
-renderWishlistPage();
+  const savedLanguage =
+    localStorage.getItem('glofe_lang') || 'en';
 
-renderAccountPage();
+  changeLanguage(savedLanguage);
+}
 
-renderPaymentPage();
+initializeApp();
 
-
-const savedLanguage =
-  localStorage.getItem(
-    "glofe_lang"
-  ) || "en";
-
-
-changeLanguage(
-  savedLanguage
-);

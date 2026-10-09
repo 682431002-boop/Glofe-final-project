@@ -300,6 +300,7 @@
         <h2>Log in to GloFe</h2>
         <label>Email<input id="loginEmail" type="email" required></label>
         <label>Password<input id="loginPassword" type="password" required minlength="6"></label>
+        
         <button class="btn dark full">Log in</button>
       </form>
       <form id="signupForm" class="hidden">
@@ -308,7 +309,38 @@
         <label>Full name<input id="signupName" required></label>
         <label>Email<input id="signupEmail" type="email" required></label>
         <label>Password<input id="signupPassword" type="password" minlength="6" required></label>
+        
+<!-- Password field เดิมของเธอให้เก็บไว้ -->
+<div class="password-rules" id="passwordRules" aria-live="polite">
+  <p class="password-rules-title">Password requirements</p>
+
+  <p class="password-rule" id="ruleLength">
+    <span class="rule-icon">○</span>
+    At least 8 characters
+  </p>
+
+  <p class="password-rule" id="ruleUpper">
+    <span class="rule-icon">○</span>
+    One uppercase letter (A–Z)
+  </p>
+
+  <p class="password-rule" id="ruleLower">
+    <span class="rule-icon">○</span>
+    One lowercase letter (a–z)
+  </p>
+
+  <p class="password-rule" id="ruleNumber">
+    <span class="rule-icon">○</span>
+    One number (0–9)
+  </p>
+</div>
         <label>Confirm password<input id="signupConfirm" type="password" minlength="6" required></label>
+
+<p
+  id="confirmPasswordFeedback"
+  class="password-match"
+  aria-live="polite"
+></p>
         <button class="btn dark full">Create account</button>
       </form>
     </div>
